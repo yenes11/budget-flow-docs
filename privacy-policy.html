@@ -3,193 +3,492 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Privacy Policy - Budget Flow</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
     <style>
         :root {
-            --primary: #4F46E5;
-            --bg: #FAFBFC;
-            --text: #1F2937;
-            --text-muted: #6B7280;
-            --card-bg: #FFFFFF;
-            --border: #E5E7EB;
+            --page: #FFFFFF;
+            --ink: #000000;
+            --secondary: #6B6B70;
+            /* Spec'd #AEAEB2 is ~2.1:1 on white; darkened to pass WCAG AA (4.5:1). */
+            --tertiary: #757578;
+            --separator: rgba(0, 0, 0, 0.1);
+            --fill: rgba(118, 118, 128, 0.1);
+            --font: "Satoshi", -apple-system, "SF Pro Text", system-ui, sans-serif;
+            --gutter: 24px;
         }
-        
-        * {
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --page: #000000;
+                --ink: #FFFFFF;
+                --secondary: #8E8E93;
+                /* Spec'd #636366 is ~3.4:1 on black; lightened to pass WCAG AA. */
+                --tertiary: #7C7C80;
+                --separator: rgba(255, 255, 255, 0.14);
+                --fill: rgba(118, 118, 128, 0.22);
+            }
+        }
+
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
+            font-family: var(--font);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: -0.2px;
+            background: var(--page);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        
-        .container {
-            max-width: 800px;
+
+        .page {
+            max-width: calc(680px + var(--gutter) * 2);
             margin: 0 auto;
-            padding: 60px 24px;
+            padding: 0 var(--gutter);
         }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 32px;
-        }
-        
-        .back-link:hover {
+
+        /* Links: ink, 1px underline, 3px offset */
+        a {
+            color: var(--ink);
             text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            text-decoration-color: currentColor;
         }
-        
-        .header {
-            margin-bottom: 48px;
+
+        a:hover {
+            text-decoration-color: var(--secondary);
         }
-        
-        h1 {
-            font-size: 36px;
+
+        a:focus-visible {
+            outline: 2px solid var(--ink);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* Top bar */
+        .topbar {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 0;
+        }
+
+        .wordmark {
+            font-size: 17px;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text);
+            letter-spacing: -0.3px;
+            text-decoration: none;
         }
-        
+
+        .topbar nav a {
+            font-size: 15px;
+            color: var(--secondary);
+        }
+
+        .topbar nav a:hover {
+            color: var(--ink);
+        }
+
+        /* Title */
+        .title {
+            padding-top: 96px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 8vw, 64px);
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.05;
+            text-wrap: balance;
+        }
+
         .last-updated {
-            color: var(--text-muted);
-            font-size: 14px;
+            margin-top: 12px;
+            font-size: 13px;
+            letter-spacing: 0;
+            color: var(--tertiary);
         }
-        
-        .content {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
+
+        /* Table of contents */
+        .toc {
+            margin-top: 48px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--separator);
         }
-        
+
+        .toc ol {
+            list-style: none;
+            columns: 2;
+            column-gap: 32px;
+        }
+
+        .toc li {
+            break-inside: avoid;
+            padding: 4px 0;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .toc li::before {
+            content: none;
+        }
+
+        .toc a {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 10px;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            color: var(--ink);
+        }
+
+        .toc .num {
+            min-width: 1.4em;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: inherit;
+            color: var(--tertiary);
+        }
+
+        /* Sections */
+        section {
+            padding-top: 56px;
+        }
+
+        section + section {
+            margin-top: 56px;
+            border-top: 1px solid var(--separator);
+        }
+
         h2 {
             font-size: 20px;
-            font-weight: 600;
-            margin-top: 32px;
-            margin-bottom: 16px;
-            color: var(--text);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+            text-wrap: balance;
+            scroll-margin-top: 24px;
         }
-        
-        h2:first-child {
-            margin-top: 0;
-        }
-        
-        p {
-            margin-bottom: 16px;
-            color: var(--text);
-        }
-        
-        ul {
-            margin-bottom: 16px;
-            padding-left: 24px;
-        }
-        
-        li {
+
+        h2 .num {
+            display: block;
             margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0;
+            color: var(--tertiary);
         }
-        
-        .highlight {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1));
-            border-left: 4px solid var(--primary);
-            padding: 16px 20px;
-            border-radius: 0 8px 8px 0;
-            margin: 24px 0;
+
+        h2 + * {
+            margin-top: 16px;
         }
-        
-        .highlight p {
-            margin-bottom: 0;
+
+        p {
+            color: var(--secondary);
+            text-wrap: pretty;
+        }
+
+        p + p,
+        p + ul,
+        ul + p,
+        ul + .callout,
+        .callout + p,
+        p + .callout {
+            margin-top: 16px;
+        }
+
+        strong,
+        .emphasis {
+            color: var(--ink);
             font-weight: 500;
         }
-        
-        .footer {
-            text-align: center;
-            margin-top: 48px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 14px;
+
+        strong {
+            font-weight: 700;
         }
-        
-        .footer a {
-            color: var(--primary);
-            text-decoration: none;
+
+        /* Lists: en-dash markers */
+        ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        li {
+            position: relative;
+            padding-left: 24px;
+            color: var(--secondary);
+            text-wrap: pretty;
+        }
+
+        li::before {
+            content: "\2013";
+            position: absolute;
+            left: 0;
+            color: var(--ink);
+        }
+
+        li a,
+        footer a {
+            overflow-wrap: anywhere;
+        }
+
+        /* The one key-point callout */
+        .callout {
+            background: var(--fill);
+            border-radius: 20px;
+            padding: 20px 24px;
+        }
+
+        .callout p {
+            color: var(--ink);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 96px;
+            padding: 24px 0 64px;
+            border-top: 1px solid var(--separator);
+            font-size: 13px;
+            letter-spacing: 0;
+            line-height: 1.5;
+            color: var(--tertiary);
+        }
+
+        footer p {
+            color: var(--tertiary);
+        }
+
+        footer p + p {
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                padding-top: 48px;
+            }
+
+            .toc {
+                margin-top: 40px;
+                padding-bottom: 32px;
+            }
+
+            .toc ol {
+                columns: 1;
+            }
+
+            footer {
+                margin-top: 72px;
+            }
+        }
+
+        @media print {
+            :root {
+                --page: #FFFFFF;
+                --ink: #000000;
+                --secondary: #000000;
+                --tertiary: #000000;
+                --separator: #000000;
+                --fill: transparent;
+            }
+
+            body {
+                font-size: 11pt;
+            }
+
+            .page {
+                max-width: none;
+                padding: 0;
+            }
+
+            .topbar nav,
+            .toc {
+                display: none;
+            }
+
+            .title {
+                padding-top: 24px;
+            }
+
+            .title + main section:first-child {
+                padding-top: 32px;
+            }
+
+            section {
+                padding-top: 24px;
+                break-inside: avoid-page;
+            }
+
+            section + section {
+                margin-top: 24px;
+            }
+
+            h2 {
+                break-after: avoid;
+            }
+
+            .callout {
+                padding: 0;
+            }
+
+            main a[href]::after,
+            footer a[href]::after {
+                content: " (" attr(href) ")";
+                font-size: 0.85em;
+                overflow-wrap: anywhere;
+            }
+
+            main a[href^="mailto:"]::after,
+            footer a[href^="mailto:"]::after {
+                content: none;
+            }
+
+            footer {
+                margin-top: 32px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-        
-        <div class="header">
-            <h1>🔒 Privacy Policy</h1>
-            <p class="last-updated">Last updated: February 3, 2026</p>
+    <div class="page">
+        <header class="topbar">
+            <a href="index.html" class="wordmark">Budget Flow</a>
+            <nav aria-label="Related">
+                <a href="terms-of-service.html">Terms of Service</a>
+            </nav>
+        </header>
+
+        <div class="title">
+            <h1>Privacy Policy</h1>
+            <p class="last-updated">Last updated: October 30, 2026</p>
+
+            <nav class="toc" aria-label="Table of contents">
+                <ol>
+                    <li><a href="#introduction"><span class="num">01</span>Introduction</a></li>
+                    <li><a href="#storage"><span class="num">02</span>Data Stored on Your Device</a></li>
+                    <li><a href="#collect"><span class="num">03</span>Information Processed by Third Parties</a></li>
+                    <li><a href="#voice"><span class="num">04</span>Voice Input</a></li>
+                    <li><a href="#permissions"><span class="num">05</span>Notifications and Widget</a></li>
+                    <li><a href="#legal-basis"><span class="num">06</span>Legal Basis and International Transfers</a></li>
+                    <li><a href="#control"><span class="num">07</span>Your Rights and Choices</a></li>
+                    <li><a href="#children"><span class="num">08</span>Children's Privacy</a></li>
+                    <li><a href="#changes"><span class="num">09</span>Changes to This Policy</a></li>
+                    <li><a href="#contact"><span class="num">10</span>Contact Us</a></li>
+                </ol>
+            </nav>
         </div>
-        
-        <div class="content">
-            <h2>Introduction</h2>
-            <p>Welcome to Budget Flow ("we," "our," or "us"). We are committed to protecting your privacy. This Privacy Policy explains our approach to data and privacy when you use our mobile application.</p>
-            
-            <div class="highlight">
-                <p>💡 Budget Flow does not collect, store, or transmit any of your personal data. All your information stays on your device and is never sent to any server.</p>
-            </div>
-            
-            <h2>Information We Collect</h2>
-            <p><strong>We do not collect any data.</strong></p>
-            <p>Budget Flow is designed with complete privacy in mind. We do not collect, store, or have access to:</p>
-            <ul>
-                <li>Personal information</li>
-                <li>Financial data or transaction records</li>
-                <li>Device information</li>
-                <li>Usage analytics or statistics</li>
-                <li>Location data</li>
-                <li>Any other user data</li>
-            </ul>
-            
-            <h2>Local Data Storage</h2>
-            <p>All the data you enter into Budget Flow (such as transactions, budgets, and categories) is stored exclusively on your device. This data:</p>
-            <ul>
-                <li>Never leaves your device</li>
-                <li>Is not transmitted to any server</li>
-                <li>Is not accessible to us or any third party</li>
-                <li>Is completely under your control</li>
-            </ul>
-            
-            <h2>Third-Party Services</h2>
-            <p>Budget Flow does not integrate with any third-party analytics, tracking, or data collection services. Your privacy is fully protected.</p>
-            
-            <h2>Your Data, Your Control</h2>
-            <p>Since all data is stored locally on your device:</p>
-            <ul>
-                <li><strong>Access:</strong> You have full access to all your data within the app</li>
-                <li><strong>Deletion:</strong> You can delete all your data by uninstalling the app or clearing app data in your device settings</li>
-                <li><strong>Portability:</strong> Your data stays with your device</li>
-            </ul>
-            
-            <h2>Children's Privacy</h2>
-            <p>Since we do not collect any data from any users, we also do not collect any data from children. Budget Flow can be safely used by users of all ages.</p>
-            
-            <h2>Changes to This Policy</h2>
-            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
-            
-            <h2>Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-            <ul>
-                <li>Email: <a href="mailto:ey.enesyurtsever@gmail.com">ey.enesyurtsever@gmail.com</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer">
+
+        <main>
+            <section aria-labelledby="introduction">
+                <h2 id="introduction"><span class="num">01</span>Introduction</h2>
+                <p>Budget Flow ("the App") is developed and published by Enes Yurtsever, an independent developer based in Türkiye ("we," "our," or "us"), who is the data controller for the purposes of this Privacy Policy. This Privacy Policy explains what information is processed when you use the App, why, and what choices you have.</p>
+                <div class="callout">
+                    <p>Budget Flow has no accounts, no ads, and no analytics or tracking. The financial records you enter are stored only on your device. We do not receive or have access to them.</p>
+                </div>
+            </section>
+
+            <section aria-labelledby="storage">
+                <h2 id="storage"><span class="num">02</span>Data Stored on Your Device</h2>
+                <p>Everything you enter into the App, such as transactions, amounts, notes, categories, accounts, recurring transactions, and your settings, is stored locally on your device. This data:</p>
+                <ul>
+                    <li>Is not sent to us or to any server operated by us or on our behalf</li>
+                    <li>Is not accessible to us or to RevenueCat</li>
+                    <li>May be included in your device backups (for example, iCloud Backup), depending on your device settings. Such backups are handled by Apple or Google under their own privacy policies</li>
+                    <li>Leaves the App only when you choose to share it, for example when you export your data as a CSV file and share it using your device's share sheet</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="collect">
+                <h2 id="collect"><span class="num">03</span>Information Processed by Third Parties</h2>
+                <p>To sell and manage subscriptions, the App uses the following services:</p>
+                <ul>
+                    <li><strong>Apple App Store / Google Play:</strong> processes your payments. We never receive your name, email address, or payment details. See Apple's and Google's privacy policies.</li>
+                    <li><strong>RevenueCat</strong> (RevenueCat, Inc., USA): manages subscription status. When you open the App or make a purchase, RevenueCat receives a random anonymous identifier generated by the App, your purchase and subscription history (products, prices, trial and renewal status, transaction identifiers), and technical information such as device model, operating system version, app version, country or store region, language, and IP address. This information is used only to verify your purchases, restore them, and provide subscription access. It is not linked to your identity and is not used for advertising or tracking. See the <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">RevenueCat Privacy Policy</a>.</li>
+                </ul>
+                <p>We may see aggregated or pseudonymous subscription information (for example, the number of trials and renewals) in the RevenueCat dashboard. We do not sell your information or share it for advertising.</p>
+            </section>
+
+            <section aria-labelledby="voice">
+                <h2 id="voice"><span class="num">04</span>Voice Input</h2>
+                <p>If you choose to add a transaction by voice, the App asks for microphone and speech recognition permissions. Your speech is converted into text by Apple's speech recognition service. Depending on your device and language, this may happen on the device or on Apple's servers, and Apple may receive the audio, the selected language, and the names of your categories (used as hints to improve recognition). This processing is subject to Apple's privacy policy.</p>
+                <p>We do not receive or store your audio recordings. The recognized text is used only to fill in the transaction you are creating. Voice input is optional, and you can revoke these permissions at any time in your device settings.</p>
+            </section>
+
+            <section aria-labelledby="permissions">
+                <h2 id="permissions"><span class="num">05</span>Notifications and Widget</h2>
+                <ul>
+                    <li><strong>Notifications:</strong> if you allow them, the App schedules reminders (such as a daily reminder to log expenses or a reminder before your free trial ends) locally on your device. No push notification server is used.</li>
+                    <li><strong>Widget:</strong> the home screen widget shows your monthly totals using data shared between the App and the widget on your device only.</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="legal-basis">
+                <h2 id="legal-basis"><span class="num">06</span>Legal Basis and International Transfers</h2>
+                <p>Where data protection laws such as the GDPR or the Turkish Personal Data Protection Law (KVKK) apply, we process the subscription information described above because it is necessary to perform our contract with you (providing the subscription you purchased) and for our legitimate interest in preventing fraud and keeping the App working.</p>
+                <p>RevenueCat processes this information in the United States. Such transfers rely on the safeguards offered by the service provider, such as standard contractual clauses, as permitted by applicable law.</p>
+                <p>RevenueCat keeps subscription records for as long as needed to provide the service and to meet legal and accounting obligations. Data stored on your device is kept until you delete it.</p>
+            </section>
+
+            <section aria-labelledby="control">
+                <h2 id="control"><span class="num">07</span>Your Rights and Choices</h2>
+                <ul>
+                    <li><strong>Access and portability:</strong> all your records are available in the App, and you can export them as a CSV file at any time.</li>
+                    <li><strong>Deletion:</strong> you can delete your records in the App, or delete everything by uninstalling the App. Uninstalling does not cancel your subscription; manage it in your App Store or Google Play account settings.</li>
+                    <li><strong>Subscription data:</strong> depending on where you live, you may have the right to access, correct, delete, or object to the processing of the subscription information held by RevenueCat, and to lodge a complaint with your data protection authority. Because this information is not linked to your identity, please contact us and include your purchase details so we can help.</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="children">
+                <h2 id="children"><span class="num">08</span>Children's Privacy</h2>
+                <p>The App is not directed at children under 13 (or the minimum age required in your country), and we do not knowingly collect personal information from children. If you believe a child has provided personal information through the App, please contact us.</p>
+            </section>
+
+            <section aria-labelledby="changes">
+                <h2 id="changes"><span class="num">09</span>Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+            </section>
+
+            <section aria-labelledby="contact">
+                <h2 id="contact"><span class="num">10</span>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy or want to exercise your rights, please contact us at:</p>
+                <ul>
+                    <li>Developer: Enes Yurtsever, Türkiye</li>
+                    <li>Email: <a href="mailto:getbudgetflow@gmail.com">getbudgetflow@gmail.com</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p><a href="mailto:getbudgetflow@gmail.com">getbudgetflow@gmail.com</a></p>
             <p>© 2026 Budget Flow. All rights reserved.</p>
-        </div>
+        </footer>
     </div>
 </body>
 </html>

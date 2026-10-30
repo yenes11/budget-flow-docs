@@ -3,236 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Terms of Service - Budget Flow</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
     <style>
         :root {
-            --primary: #4F46E5;
-            --bg: #FAFBFC;
-            --text: #1F2937;
-            --text-muted: #6B7280;
-            --card-bg: #FFFFFF;
-            --border: #E5E7EB;
+            --page: #FFFFFF;
+            --ink: #000000;
+            --secondary: #6B6B70;
+            /* Spec'd #AEAEB2 is ~2.1:1 on white; darkened to pass WCAG AA (4.5:1). */
+            --tertiary: #757578;
+            --separator: rgba(0, 0, 0, 0.1);
+            --fill: rgba(118, 118, 128, 0.1);
+            --font: "Satoshi", -apple-system, "SF Pro Text", system-ui, sans-serif;
+            --gutter: 24px;
         }
-        
-        * {
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --page: #000000;
+                --ink: #FFFFFF;
+                --secondary: #8E8E93;
+                /* Spec'd #636366 is ~3.4:1 on black; lightened to pass WCAG AA. */
+                --tertiary: #7C7C80;
+                --separator: rgba(255, 255, 255, 0.14);
+                --fill: rgba(118, 118, 128, 0.22);
+            }
+        }
+
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
+            font-family: var(--font);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: -0.2px;
+            background: var(--page);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        
-        .container {
-            max-width: 800px;
+
+        .page {
+            max-width: calc(680px + var(--gutter) * 2);
             margin: 0 auto;
-            padding: 60px 24px;
+            padding: 0 var(--gutter);
         }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 32px;
-        }
-        
-        .back-link:hover {
+
+        /* Links: ink, 1px underline, 3px offset */
+        a {
+            color: var(--ink);
             text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            text-decoration-color: currentColor;
         }
-        
-        .header {
-            margin-bottom: 48px;
+
+        a:hover {
+            text-decoration-color: var(--secondary);
         }
-        
-        h1 {
-            font-size: 36px;
+
+        a:focus-visible {
+            outline: 2px solid var(--ink);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* Top bar */
+        .topbar {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 0;
+        }
+
+        .wordmark {
+            font-size: 17px;
             font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text);
+            letter-spacing: -0.3px;
+            text-decoration: none;
         }
-        
+
+        .topbar nav a {
+            font-size: 15px;
+            color: var(--secondary);
+        }
+
+        .topbar nav a:hover {
+            color: var(--ink);
+        }
+
+        /* Title */
+        .title {
+            padding-top: 96px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 8vw, 64px);
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.05;
+            text-wrap: balance;
+        }
+
         .last-updated {
-            color: var(--text-muted);
-            font-size: 14px;
+            margin-top: 12px;
+            font-size: 13px;
+            letter-spacing: 0;
+            color: var(--tertiary);
         }
-        
-        .content {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
+
+        /* Table of contents */
+        .toc {
+            margin-top: 48px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--separator);
         }
-        
+
+        .toc ol {
+            list-style: none;
+            columns: 2;
+            column-gap: 32px;
+        }
+
+        .toc li {
+            break-inside: avoid;
+            padding: 4px 0;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .toc li::before {
+            content: none;
+        }
+
+        .toc a {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 10px;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            color: var(--ink);
+        }
+
+        .toc .num {
+            min-width: 1.4em;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: inherit;
+            color: var(--tertiary);
+        }
+
+        /* Sections */
+        section {
+            padding-top: 56px;
+        }
+
+        section + section {
+            margin-top: 56px;
+            border-top: 1px solid var(--separator);
+        }
+
         h2 {
             font-size: 20px;
-            font-weight: 600;
-            margin-top: 32px;
-            margin-bottom: 16px;
-            color: var(--text);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+            text-wrap: balance;
+            scroll-margin-top: 24px;
         }
-        
-        h2:first-child {
-            margin-top: 0;
-        }
-        
-        p {
-            margin-bottom: 16px;
-            color: var(--text);
-        }
-        
-        ul, ol {
-            margin-bottom: 16px;
-            padding-left: 24px;
-        }
-        
-        li {
+
+        h2 .num {
+            display: block;
             margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0;
+            color: var(--tertiary);
         }
-        
-        .highlight {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1));
-            border-left: 4px solid var(--primary);
-            padding: 16px 20px;
-            border-radius: 0 8px 8px 0;
-            margin: 24px 0;
+
+        h2 + * {
+            margin-top: 16px;
         }
-        
-        .highlight p {
-            margin-bottom: 0;
+
+        p {
+            color: var(--secondary);
+            text-wrap: pretty;
+        }
+
+        p + p,
+        p + ul,
+        ul + p,
+        ul + .callout,
+        .callout + p,
+        p + .callout {
+            margin-top: 16px;
+        }
+
+        strong,
+        .emphasis {
+            color: var(--ink);
             font-weight: 500;
         }
-        
-        .warning {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid #EF4444;
-            padding: 16px 20px;
-            border-radius: 0 8px 8px 0;
-            margin: 24px 0;
+
+        strong {
+            font-weight: 700;
         }
-        
-        .warning p {
-            margin-bottom: 0;
+
+        /* Lists: en-dash markers */
+        ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
-        
-        a {
-            color: var(--primary);
-            text-decoration: none;
+
+        li {
+            position: relative;
+            padding-left: 24px;
+            color: var(--secondary);
+            text-wrap: pretty;
         }
-        
-        a:hover {
-            text-decoration: underline;
+
+        li::before {
+            content: "\2013";
+            position: absolute;
+            left: 0;
+            color: var(--ink);
         }
-        
-        .footer {
-            text-align: center;
-            margin-top: 48px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 14px;
+
+        li a,
+        footer a {
+            overflow-wrap: anywhere;
+        }
+
+        /* The one key-point callout */
+        .callout {
+            background: var(--fill);
+            border-radius: 20px;
+            padding: 20px 24px;
+        }
+
+        .callout p {
+            color: var(--ink);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 96px;
+            padding: 24px 0 64px;
+            border-top: 1px solid var(--separator);
+            font-size: 13px;
+            letter-spacing: 0;
+            line-height: 1.5;
+            color: var(--tertiary);
+        }
+
+        footer p {
+            color: var(--tertiary);
+        }
+
+        footer p + p {
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                padding-top: 48px;
+            }
+
+            .toc {
+                margin-top: 40px;
+                padding-bottom: 32px;
+            }
+
+            .toc ol {
+                columns: 1;
+            }
+
+            footer {
+                margin-top: 72px;
+            }
+        }
+
+        @media print {
+            :root {
+                --page: #FFFFFF;
+                --ink: #000000;
+                --secondary: #000000;
+                --tertiary: #000000;
+                --separator: #000000;
+                --fill: transparent;
+            }
+
+            body {
+                font-size: 11pt;
+            }
+
+            .page {
+                max-width: none;
+                padding: 0;
+            }
+
+            .topbar nav,
+            .toc {
+                display: none;
+            }
+
+            .title {
+                padding-top: 24px;
+            }
+
+            .title + main section:first-child {
+                padding-top: 32px;
+            }
+
+            section {
+                padding-top: 24px;
+                break-inside: avoid-page;
+            }
+
+            section + section {
+                margin-top: 24px;
+            }
+
+            h2 {
+                break-after: avoid;
+            }
+
+            .callout {
+                padding: 0;
+            }
+
+            main a[href]::after,
+            footer a[href]::after {
+                content: " (" attr(href) ")";
+                font-size: 0.85em;
+                overflow-wrap: anywhere;
+            }
+
+            main a[href^="mailto:"]::after,
+            footer a[href^="mailto:"]::after {
+                content: none;
+            }
+
+            footer {
+                margin-top: 32px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Back to Home</a>
-        
-        <div class="header">
-            <h1>📜 Terms of Service</h1>
-            <p class="last-updated">Last updated: February 3, 2026</p>
+    <div class="page">
+        <header class="topbar">
+            <a href="index.html" class="wordmark">Budget Flow</a>
+            <nav aria-label="Related">
+                <a href="https://yenes11.github.io/budget-flow-docs/privacy-policy.html">Privacy Policy</a>
+            </nav>
+        </header>
+
+        <div class="title">
+            <h1>Terms of Service</h1>
+            <p class="last-updated">Last updated: October 30, 2026</p>
+
+            <nav class="toc" aria-label="Table of contents">
+                <ol>
+                    <li><a href="#acceptance"><span class="num">01</span>Acceptance of Terms</a></li>
+                    <li><a href="#description"><span class="num">02</span>Description of Service</a></li>
+                    <li><a href="#responsibilities"><span class="num">03</span>Your Responsibilities and Your Data</a></li>
+                    <li><a href="#subscription"><span class="num">04</span>Subscription and Payments</a></li>
+                    <li><a href="#ip"><span class="num">05</span>Intellectual Property and License</a></li>
+                    <li><a href="#privacy"><span class="num">06</span>Data and Privacy</a></li>
+                    <li><a href="#warranties"><span class="num">07</span>Disclaimer of Warranties</a></li>
+                    <li><a href="#liability"><span class="num">08</span>Limitation of Liability</a></li>
+                    <li><a href="#indemnification"><span class="num">09</span>Indemnification</a></li>
+                    <li><a href="#modifications"><span class="num">10</span>Changes to the App and Termination</a></li>
+                    <li><a href="#apple"><span class="num">11</span>Apple App Store Terms</a></li>
+                    <li><a href="#changes"><span class="num">12</span>Changes to Terms</a></li>
+                    <li><a href="#law"><span class="num">13</span>Governing Law</a></li>
+                    <li><a href="#contact"><span class="num">14</span>Contact Information</a></li>
+                </ol>
+            </nav>
         </div>
-        
-        <div class="content">
-            <h2>1. Acceptance of Terms</h2>
-            <p>By downloading, installing, or using Budget Flow ("the App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use the App.</p>
-            
-            <h2>2. Description of Service</h2>
-            <p>Budget Flow is a personal finance management application that allows users to:</p>
-            <ul>
-                <li>Track income and expenses</li>
-                <li>Create and manage budgets</li>
-                <li>Categorize transactions</li>
-                <li>View financial reports and analytics</li>
-            </ul>
-            
-            <div class="highlight">
-                <p>💡 Budget Flow is designed as a personal budgeting tool. It is not intended to provide financial, investment, or tax advice.</p>
-            </div>
-            
-            <h2>3. User Accounts and Responsibilities</h2>
-            <p>When using Budget Flow, you agree to:</p>
-            <ul>
-                <li>Provide accurate information when setting up the app</li>
-                <li>Maintain the security of your device and app data</li>
-                <li>Use the app only for lawful purposes</li>
-                <li>Not attempt to reverse engineer, modify, or distribute the app</li>
-                <li>Not use the app to transmit any harmful or malicious content</li>
-            </ul>
-            
-            <h2>4. Subscription and Payments</h2>
-            <p>Budget Flow offers both free and premium features:</p>
-            <ul>
-                <li><strong>Free Version:</strong> Basic budgeting and transaction tracking features</li>
-                <li><strong>Premium Version:</strong> Advanced features including unlimited budgets, detailed reports, and priority support</li>
-            </ul>
-            <p>Premium subscriptions are billed through your App Store or Google Play account. You can manage or cancel your subscription through your device's subscription settings.</p>
-            
-            <h2>5. Intellectual Property</h2>
-            <p>All content, features, and functionality of Budget Flow, including but not limited to text, graphics, logos, icons, and software, are the exclusive property of Budget Flow and are protected by international copyright, trademark, and other intellectual property laws.</p>
-            
-            <h2>6. Data and Privacy</h2>
-            <p>Your use of Budget Flow is also governed by our <a href="privacy-policy.html">Privacy Policy</a>. By using the App, you consent to the collection and use of information as described in our Privacy Policy.</p>
-            
-            <h2>7. Disclaimer of Warranties</h2>
-            <div class="warning">
-                <p>⚠️ Budget Flow is provided "as is" and "as available" without any warranties of any kind, either express or implied.</p>
-            </div>
-            <p>We do not warrant that:</p>
-            <ul>
-                <li>The app will be uninterrupted, timely, secure, or error-free</li>
-                <li>The results obtained from using the app will be accurate or reliable</li>
-                <li>Any errors in the app will be corrected</li>
-            </ul>
-            
-            <h2>8. Limitation of Liability</h2>
-            <p>To the maximum extent permitted by law, Budget Flow and its developers shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:</p>
-            <ul>
-                <li>Your use or inability to use the app</li>
-                <li>Any unauthorized access to or use of your data</li>
-                <li>Any errors or omissions in the app</li>
-                <li>Any financial decisions made based on information provided by the app</li>
-            </ul>
-            
-            <h2>9. Indemnification</h2>
-            <p>You agree to indemnify and hold harmless Budget Flow and its developers from any claims, damages, losses, liabilities, and expenses arising out of your use of the app or violation of these Terms.</p>
-            
-            <h2>10. Modifications to the Service</h2>
-            <p>We reserve the right to modify, suspend, or discontinue the App at any time without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuance of the service.</p>
-            
-            <h2>11. Changes to Terms</h2>
-            <p>We may update these Terms from time to time. We will notify you of any changes by posting the new Terms on this page and updating the "Last updated" date. Your continued use of the App after any changes constitutes acceptance of the new Terms.</p>
-            
-            <h2>12. Governing Law</h2>
-            <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which Budget Flow operates, without regard to its conflict of law provisions.</p>
-            
-            <h2>13. Contact Information</h2>
-            <p>If you have any questions about these Terms, please contact us at:</p>
-            <ul>
-                <li>Email: <a href="mailto:ey.enesyurtsever@gmail.com">ey.enesyurtsever@gmail.com</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer">
+
+        <main>
+            <section aria-labelledby="acceptance">
+                <h2 id="acceptance"><span class="num">01</span>Acceptance of Terms</h2>
+                <p>Budget Flow ("the App") is developed and published by Enes Yurtsever, an independent developer based in Türkiye ("we," "our," or "us"). By downloading, installing, or using the App, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use the App.</p>
+            </section>
+
+            <section aria-labelledby="description">
+                <h2 id="description"><span class="num">02</span>Description of Service</h2>
+                <p>Budget Flow is a personal finance tracking application that allows you to:</p>
+                <ul>
+                    <li>Record income and expenses, including by voice</li>
+                    <li>Organize transactions into categories and separate accounts</li>
+                    <li>Set up recurring transactions and reminders</li>
+                    <li>View summaries and insights about your spending</li>
+                    <li>See your monthly totals in a home screen widget</li>
+                    <li>Export your records as a CSV file</li>
+                </ul>
+                <p class="emphasis">Budget Flow is a personal record-keeping tool. It is not intended to provide financial, investment, or tax advice, and it does not connect to your bank or move money.</p>
+            </section>
+
+            <section aria-labelledby="responsibilities">
+                <h2 id="responsibilities"><span class="num">03</span>Your Responsibilities and Your Data</h2>
+                <p>The App has no user accounts. When using it, you agree to:</p>
+                <ul>
+                    <li>Maintain the security of your device and app data</li>
+                    <li>Use the App only for lawful, personal, non-commercial purposes</li>
+                    <li>Not attempt to reverse engineer, modify, or redistribute the App, except where applicable law expressly permits it</li>
+                    <li>Review transactions created by voice input before saving them, since speech recognition may misinterpret amounts or categories</li>
+                </ul>
+                <div class="callout">
+                    <p>Your records are stored only on your device. We do not keep a copy and cannot recover them. If you delete the App, lose or reset your device, or switch devices without a backup, your records may be lost. Restoring a purchase restores access to the App, not your data. You are responsible for keeping backups, for example through your device backup or the CSV export.</p>
+                </div>
+            </section>
+
+            <section aria-labelledby="subscription">
+                <h2 id="subscription"><span class="num">04</span>Subscription and Payments</h2>
+                <p>Budget Flow is available with an auto-renewable subscription (yearly or monthly) or, where offered, a one-time lifetime purchase. Prices are shown in the App before you buy and may vary by country.</p>
+                <ul>
+                    <li><strong>Free trial:</strong> new subscribers may receive a free trial (currently 7 days on the yearly plan). Unless you cancel at least 24 hours before the trial ends, the subscription starts and you are charged automatically.</li>
+                    <li><strong>Billing:</strong> payment is charged to your Apple Account or Google Play account when you confirm the purchase or, with a free trial, when the trial ends.</li>
+                    <li><strong>Renewal:</strong> subscriptions renew automatically at the same duration and price unless auto-renewal is turned off at least 24 hours before the end of the current period. If the price changes, you will be notified by Apple or Google as required by their rules.</li>
+                    <li><strong>Cancellation:</strong> you can manage or cancel your subscription at any time in your App Store or Google Play account settings. Deleting the App does not cancel your subscription. You keep access until the end of the current trial or paid period.</li>
+                    <li><strong>Refunds:</strong> payments are processed by Apple or Google, and refunds are handled by them under their policies.</li>
+                    <li><strong>After your subscription ends:</strong> access to the App's features requires an active subscription or lifetime purchase. Your records stay on your device, and you can still export them as a CSV file from the App.</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="ip">
+                <h2 id="ip"><span class="num">05</span>Intellectual Property and License</h2>
+                <p>The App and all its content, features, and functionality, including text, graphics, logos, icons, and software, are owned by us or our licensors and are protected by copyright, trademark, and other intellectual property laws. Subject to these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to use the App on devices you own or control, as permitted by the usage rules of the store you downloaded it from.</p>
+            </section>
+
+            <section aria-labelledby="privacy">
+                <h2 id="privacy"><span class="num">06</span>Data and Privacy</h2>
+                <p>Your use of Budget Flow is also governed by our <a href="privacy-policy.html">Privacy Policy</a>, which explains what information is processed and by whom.</p>
+            </section>
+
+            <section aria-labelledby="warranties">
+                <h2 id="warranties"><span class="num">07</span>Disclaimer of Warranties</h2>
+                <p class="emphasis">To the extent permitted by law, Budget Flow is provided "as is" and "as available" without any warranties of any kind, either express or implied.</p>
+                <p>We do not warrant that:</p>
+                <ul>
+                    <li>The App will be uninterrupted, timely, secure, or error-free</li>
+                    <li>Calculations, summaries, or voice recognition results will always be accurate</li>
+                    <li>Any errors in the App will be corrected</li>
+                </ul>
+                <p>Nothing in these Terms affects your statutory rights as a consumer that cannot be waived or limited by contract.</p>
+            </section>
+
+            <section aria-labelledby="liability">
+                <h2 id="liability"><span class="num">08</span>Limitation of Liability</h2>
+                <p>To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits, revenues, data, or goodwill, resulting from:</p>
+                <ul>
+                    <li>Your use of or inability to use the App</li>
+                    <li>Loss of data stored on your device</li>
+                    <li>Any unauthorized access to your device or data</li>
+                    <li>Any errors or omissions in the App</li>
+                    <li>Any financial decisions made based on information shown in the App</li>
+                </ul>
+                <p>To the maximum extent permitted by law, our total liability to you for any claim related to the App is limited to the amount you paid for the App in the 12 months before the claim arose. These limitations do not apply to liability that cannot be limited or excluded under applicable law, such as liability for intent or gross negligence.</p>
+            </section>
+
+            <section aria-labelledby="indemnification">
+                <h2 id="indemnification"><span class="num">09</span>Indemnification</h2>
+                <p>To the extent permitted by law, you agree to indemnify and hold us harmless from any claims, damages, losses, liabilities, and expenses arising out of your misuse of the App or your violation of these Terms.</p>
+            </section>
+
+            <section aria-labelledby="modifications">
+                <h2 id="modifications"><span class="num">10</span>Changes to the App and Termination</h2>
+                <p>We may update, change, or remove features of the App from time to time. If we decide to discontinue the App, we will try to give reasonable notice, and your records will remain on your device and exportable as a CSV file for as long as the installed App runs on your device.</p>
+                <p>You may stop using the App at any time by deleting it and cancelling your subscription. Your license to use the App ends automatically if you materially breach these Terms.</p>
+            </section>
+
+            <section aria-labelledby="apple">
+                <h2 id="apple"><span class="num">11</span>Apple App Store Terms</h2>
+                <p>If you downloaded the App from the Apple App Store, the following also applies:</p>
+                <ul>
+                    <li>These Terms are between you and us, not Apple. We, not Apple, are solely responsible for the App and its content.</li>
+                    <li>Apple has no obligation to provide any maintenance or support for the App.</li>
+                    <li>If the App fails to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price (if any) to you. To the maximum extent permitted by law, Apple has no other warranty obligation with respect to the App.</li>
+                    <li>We, not Apple, are responsible for addressing any claims by you or any third party relating to the App, including product liability claims, claims that the App fails to conform to legal or regulatory requirements, and claims arising under consumer protection, privacy, or similar laws.</li>
+                    <li>In the event of any third-party claim that the App infringes intellectual property rights, we, not Apple, are solely responsible for its investigation, defense, settlement, and discharge.</li>
+                    <li>You represent that you are not located in a country subject to a U.S. Government embargo or designated as a "terrorist supporting" country, and that you are not on any U.S. Government list of prohibited or restricted parties.</li>
+                    <li>You must comply with applicable third-party terms when using the App.</li>
+                    <li>Apple and its subsidiaries are third-party beneficiaries of these Terms and may enforce them against you.</li>
+                </ul>
+                <p>Where these Terms do not address a matter, Apple's <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Standard License Agreement</a> applies.</p>
+            </section>
+
+            <section aria-labelledby="changes">
+                <h2 id="changes"><span class="num">12</span>Changes to Terms</h2>
+                <p>We may update these Terms from time to time. We will notify you of any changes by posting the new Terms on this page and updating the "Last updated" date. Your continued use of the App after any changes constitutes acceptance of the new Terms.</p>
+            </section>
+
+            <section aria-labelledby="law">
+                <h2 id="law"><span class="num">13</span>Governing Law</h2>
+                <p>These Terms are governed by the laws of the Republic of Türkiye, without regard to its conflict of law provisions. If you are a consumer, you also keep the protection of the mandatory laws of the country where you live, and you may bring claims in the courts or consumer authorities available to you there.</p>
+            </section>
+
+            <section aria-labelledby="contact">
+                <h2 id="contact"><span class="num">14</span>Contact Information</h2>
+                <p>If you have any questions about these Terms, please contact us at:</p>
+                <ul>
+                    <li>Developer: Enes Yurtsever, Türkiye</li>
+                    <li>Email: <a href="mailto:getbudgetflow@gmail.com">getbudgetflow@gmail.com</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p><a href="mailto:getbudgetflow@gmail.com">getbudgetflow@gmail.com</a></p>
             <p>© 2026 Budget Flow. All rights reserved.</p>
-        </div>
+        </footer>
     </div>
 </body>
 </html>
